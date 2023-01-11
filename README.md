@@ -6,9 +6,9 @@ East's dwm build
 
 Patches
 -------
-* [Swallow] (https://dwm.suckless.org/patches/swallow/)
-* [Shiftview] (https://lists.suckless.org/dev/1104/7590.html)
-
+* [Swallow](https://dwm.suckless.org/patches/swallow/)
+* [Shiftview](https://lists.suckless.org/dev/1104/7590.html)
+ 
 Software "dependencies"
 ---------------------
 * [dmenu](https://tools.suckless.org/dmenu/)
