@@ -10,7 +10,11 @@ Software dependencies
 - [Alacritty](https://github.com/alacritty/alacritty)
 
 
+Additional dependancies
 
+- libxcb (required by swallow)
+- Xlib-libxcb (required by swallow)
+- xcb-res (required by swallow)
 
 Installation
 ------------
