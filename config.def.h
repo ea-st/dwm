@@ -33,7 +33,7 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */ /* swallow patch */
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 }, /* swallow patch */
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 }, /* swallow patch */
-	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 }, /* swallow patch */
+	{ "Alacritty",      NULL,     NULL,           0,         0,          1,           0,        -1 }, /* swallow patch */
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */ /* swallow patch */
 };
 
