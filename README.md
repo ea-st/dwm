@@ -4,9 +4,11 @@ East's dwm build
 [Pictures go here when I configure the setup]
 
 
-Software dpendencies
+Software dependencies
 ---------------------
+- [Dmenu](https://tools.suckless.org/dmenu/)
 - [Alacritty](https://github.com/alacritty/alacritty)
+
 
 
 
