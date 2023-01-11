@@ -44,7 +44,7 @@ QNA
 >>Mainly in the file <kbd>config.def.h</kbd>.
 
 >"Why is dependencies in air quotes?"
->>dwm is relatively simple to configure so the software i've set it up with is optionable.
+>>dwm is relatively simple to configure so the software i've set it up with is optional.
 
 Disclaimer
 ----------
