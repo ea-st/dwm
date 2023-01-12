@@ -1,27 +1,27 @@
-East's dwm build
+east's dwm build
 =================
 
-[Pictures go here when I configure the setup]
+[pictures go here when I configure the setup]
 
 
-Patches
+patches
 -------
-* [Swallow](https://dwm.suckless.org/patches/swallow/)
-* [Shiftview](https://lists.suckless.org/dev/1104/7590.html)
+* [swallow](https://dwm.suckless.org/patches/swallow/)
+* [shiftview](https://lists.suckless.org/dev/1104/7590.html)
  
 Software "dependencies"
 ---------------------
 * [dmenu](https://tools.suckless.org/dmenu/)
-* [Alacritty](https://github.com/alacritty/alacritty)
+* [alacritty](https://github.com/alacritty/alacritty)
 
 
-Additional dependancies
+additional dependancies
 
 * libxcb (required by swallow)
 * Xlib-libxcb (required by swallow)
 * xcb-res (required by swallow)
 
-Installation
+installation
 ------------
 
 
