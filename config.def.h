@@ -49,6 +49,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically (vanitygaps patch) */
+#include "vanitygaps.c" /* vanitygaps patch */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -86,9 +87,9 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 
-/* patches */
-#include "shiftview.c"
-#include "vanitygaps.c"
+
+#include "shiftview.c" /* shiftview patch */
+
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
