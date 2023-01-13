@@ -26,13 +26,11 @@ installation
 ------------
 
 
-    git clone https://github.com/ea-st/dwm;cd dwm
+    git clone https://codeberg.org/east/dwm;cd dwm
 
  ------------------------------------------------
 
     make install
-
-Add ```exec dwm``` to your <kbd>.xinitrc</kbd> file.
 
 
 
