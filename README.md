@@ -8,6 +8,7 @@ patches
 -------
 * [swallow](https://dwm.suckless.org/patches/swallow/)
 * [shiftview](https://lists.suckless.org/dev/1104/7590.html)
+* [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/)
  
 Software "dependencies"
 ---------------------
