@@ -130,6 +130,10 @@ struct Monitor {
 	int by;               /* bar geometry */
 	int mx, my, mw, mh;   /* screen size */
 	int wx, wy, ww, wh;   /* window area  */
+	int gappih;           /* horizontal gap between windows (vanitygaps patch) */
+	int gappiv;           /* vertical gap between windows (vanitygaps patch) */
+	int gappoh;           /* horizontal outer gaps (vanitygaps patch) */
+	int gappov;           /* vertical outer gaps (vanitygaps patch) */
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
@@ -222,7 +226,7 @@ static void sigchld(int unused);
 static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
-static void tile(Monitor *m);
+// static void tile(Monitor *m); (removed by vanitygaps patch)
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggletag(const Arg *arg);
@@ -714,6 +718,10 @@ createmon(void)
 	m->nmaster = nmaster;
 	m->showbar = showbar;
 	m->topbar = topbar;
+	m->gappih = gappih; /* vanitygaps patch */
+	m->gappiv = gappiv; /* vanitygaps patch */
+	m->gappoh = gappoh; /* vanitygaps patch */
+	m->gappov = gappov; /* vanitygaps patch */
 	m->lt[0] = &layouts[0];
 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
 	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
@@ -1758,7 +1766,8 @@ tagmon(const Arg *arg)
 	sendmon(selmon->sel, dirtomon(arg->i));
 }
 
-void
+// removed by vanitygaps patch START
+/* void
 tile(Monitor *m)
 {
 	unsigned int i, n, h, mw, my, ty;
@@ -1785,6 +1794,8 @@ tile(Monitor *m)
 				ty += HEIGHT(c);
 		}
 }
+*/
+// removed by vanitygaps patch END
 
 void
 togglebar(const Arg *arg)
