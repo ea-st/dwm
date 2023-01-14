@@ -229,6 +229,7 @@ static void tagmon(const Arg *arg);
 // static void tile(Monitor *m); (removed by vanitygaps patch)
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
+static void togglefullscr(const Arg *arg); /* actualfullscreen patch */
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -1819,7 +1820,14 @@ togglefloating(const Arg *arg)
 			selmon->sel->w, selmon->sel->h, 0);
 	arrange(selmon);
 }
-
+/* actual fullscreen patch START */
+void
+togglefullscr(const Arg *arg)
+{
+  if(selmon->sel)
+    setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
+}
+/* actual fullscreen patch END */
 void
 toggletag(const Arg *arg)
 {
