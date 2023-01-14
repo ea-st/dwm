@@ -20,6 +20,7 @@ software "dependencies"
 
 
 additional dependancies
+-----------------------
 
 * [xorg](https://wiki.gentoo.org/wiki/Xorg/Guide)
 
