@@ -103,7 +103,7 @@ struct Client {
 	int bw, oldbw;
 	unsigned int tags;
 	// int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen; /* removed by swallow & sticky patch */
-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, isterminal, noswallow, issticky; /* swallow & sticky patch */
+	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, issticky, isterminal, noswallow; /* swallow & sticky patch */
 	pid_t pid; /* swallow patch */
 	Client *next;
 	Client *snext;
@@ -218,8 +218,8 @@ static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
-static void setfullscreen(Client *c, int fullscreen);
-static void setfocus(Client *c); /* sticky patch */
+static void setfullscreen(Client *c, int fullscreen); 
+static void setsticky(Client *c, int sticky); /* sticky patch */
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
