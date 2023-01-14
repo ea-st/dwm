@@ -13,7 +13,7 @@ patches
 * [sticky](https://dwm.suckless.org/patches/sticky/)
 
 
-Software "dependencies"
+software "dependencies"
 ---------------------
 * [dmenu](https://tools.suckless.org/dmenu/)
 * [alacritty](https://github.com/alacritty/alacritty)
@@ -21,9 +21,8 @@ Software "dependencies"
 
 additional dependancies
 
-* libxcb (required by swallow)
-* Xlib-libxcb (required by swallow)
-* xcb-res (required by swallow)
+* [xorg](https://wiki.gentoo.org/wiki/Xorg/Guide)
+
 
 installation
 ------------
@@ -49,7 +48,7 @@ QNA
 >>Mainly in the file <kbd>config.def.h</kbd>.
 
 
-Disclaimer
+disclaimer
 ----------
 
 This is made mainly for myself, and for the purpose of archival.
