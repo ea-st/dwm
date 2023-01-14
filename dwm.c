@@ -57,7 +57,8 @@
 #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
 #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
                                * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
-#define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
+// #define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags])) /* removed by sticky patch */
+#define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]) || C->issticky) /* sticky patch */
 #define LENGTH(X)               (sizeof X / sizeof X[0])
 #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
 #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
@@ -69,7 +70,8 @@
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
 enum { SchemeNorm, SchemeSel }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
-       NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+       //NetWMFullscreen, NetActiveWindow, NetWMWindowType, /* removed by sticky patch */
+	   NetWMFullscreen, NetWMSticky, NetActiveWindow, NetWMWindowType, /* sticky patch */
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
 enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
 enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
@@ -100,8 +102,8 @@ struct Client {
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh, hintsvalid;
 	int bw, oldbw;
 	unsigned int tags;
-	// int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen; /* removed by swallow patch */
-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, isterminal, noswallow; /* swallow patch */
+	// int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen; /* removed by swallow & sticky patch */
+	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, isterminal, noswallow, issticky; /* swallow & sticky patch */
 	pid_t pid; /* swallow patch */
 	Client *next;
 	Client *snext;
@@ -217,6 +219,7 @@ static void sendmon(Client *c, Monitor *m);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
+static void setfocus(Client *c); /* sticky patch */
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
@@ -229,6 +232,7 @@ static void tagmon(const Arg *arg);
 // static void tile(Monitor *m); (removed by vanitygaps patch)
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
+static void togglesticky(const Arg *arg); /* sticky patch */
 static void togglefullscr(const Arg *arg); /* actualfullscreen patch */
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
@@ -603,6 +607,10 @@ clientmessage(XEvent *e)
 		|| cme->data.l[2] == netatom[NetWMFullscreen])
 			setfullscreen(c, (cme->data.l[0] == 1 /* _NET_WM_STATE_ADD    */
 				|| (cme->data.l[0] == 2 /* _NET_WM_STATE_TOGGLE */ && !c->isfullscreen)));
+
+        if (cme->data.l[1] == netatom[NetWMSticky] /* sticky patch */
+                || cme->data.l[2] == netatom[NetWMSticky]) /* sticky patch */ 
+            setsticky(c, (cme->data.l[0] == 1 || (cme->data.l[0] == 2 && !c->issticky))); /* sticky patch */
 	} else if (cme->message_type == netatom[NetActiveWindow]) {
 		if (c != selmon->sel && !c->isurgent)
 			seturgent(c, 1);
@@ -1596,6 +1604,23 @@ setfullscreen(Client *c, int fullscreen)
 		arrange(c->mon);
 	}
 }
+// sticky patch START
+void
+setsticky(Client *c, int sticky)
+{
+
+    if(sticky && !c->issticky) {
+        XChangeProperty(dpy, c->win, netatom[NetWMState], XA_ATOM, 32,
+                PropModeReplace, (unsigned char *) &netatom[NetWMSticky], 1);
+        c->issticky = 1;
+    } else if(!sticky && c->issticky){
+        XChangeProperty(dpy, c->win, netatom[NetWMState], XA_ATOM, 32,
+                PropModeReplace, (unsigned char *)0, 0);
+        c->issticky = 0;
+        arrange(c->mon);
+    }
+}
+// sticky patch END
 
 void
 setlayout(const Arg *arg)
@@ -1659,6 +1684,7 @@ setup(void)
 	netatom[NetWMState] = XInternAtom(dpy, "_NET_WM_STATE", False);
 	netatom[NetWMCheck] = XInternAtom(dpy, "_NET_SUPPORTING_WM_CHECK", False);
 	netatom[NetWMFullscreen] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", False);
+	netatom[NetWMSticky] = XInternAtom(dpy, "_NET_WM_STATE_STICKY", False); /* sticky patch */
 	netatom[NetWMWindowType] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
 	netatom[NetWMWindowTypeDialog] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DIALOG", False);
 	netatom[NetClientList] = XInternAtom(dpy, "_NET_CLIENT_LIST", False);
@@ -1820,14 +1846,25 @@ togglefloating(const Arg *arg)
 			selmon->sel->w, selmon->sel->h, 0);
 	arrange(selmon);
 }
-/* actual fullscreen patch START */
+// sticky patch START
+void
+togglesticky(const Arg *arg)
+{
+	if (!selmon->sel)
+		return;
+    setsticky(selmon->sel, !selmon->sel->issticky);
+	arrange(selmon);
+}
+// sticky patch END
+
+// actualfullscreen patch START 
 void
 togglefullscr(const Arg *arg)
 {
   if(selmon->sel)
     setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
 }
-/* actual fullscreen patch END */
+// actualfullscreen patch END
 void
 toggletag(const Arg *arg)
 {
@@ -2142,10 +2179,17 @@ updatewindowtype(Client *c)
 	Atom state = getatomprop(c, netatom[NetWMState]);
 	Atom wtype = getatomprop(c, netatom[NetWMWindowType]);
 
-	if (state == netatom[NetWMFullscreen])
-		setfullscreen(c, 1);
-	if (wtype == netatom[NetWMWindowTypeDialog])
-		c->isfloating = 1;
+//	if (state == netatom[NetWMFullscreen]) /* removed by sticky patch */
+//		setfullscreen(c, 1); /* removed by sticky patch */
+//	if (wtype == netatom[NetWMWindowTypeDialog]) /* removed by sticky patch */
+//		c->isfloating = 1; /* removed by sticky patch */
+    if (state == netatom[NetWMFullscreen]) /* sticky patch START */
+        setfullscreen(c, 1); 
+    if (state == netatom[NetWMSticky]) { 
+        setsticky(c, 1);
+    }
+    if (wtype == netatom[NetWMWindowTypeDialog])
+        c->isfloating = 1; /* sticky patch END */
 }
 
 void
