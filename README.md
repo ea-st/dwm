@@ -28,6 +28,8 @@ additional dependancies
 installation
 ------------
 
+Heres a quick [tutorial](https://dwm.suckless.org/tutorial/) you should read if you've never used dwm before.
+
 
     git clone https://codeberg.org/east/dwm;cd dwm
 
@@ -36,7 +38,7 @@ installation
     make install
 
 
-
+------
 QNA
 ---
 >"What are the keybinds?"
