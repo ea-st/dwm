@@ -44,19 +44,26 @@
 
 ## vanity gaps default binds [unfinished]
 
-Alt+Super+0 ― toggle gaps on and off
-Alt+Super+Shift+0 ― reset gaps back to default
-Alt+Super+h ― increase all gaps
-Alt+Super+l ― decrease all gaps
-Alt+Super+Shift+h ― increase outer gaps
-Alt+Super+Shift+l ― decrease outer gaps
-Alt+Super+Ctrl+h ― increase inner gaps
-Alt+Super+Ctrl+l ― decrease inner gaps
-Alt+y ― increase inner horizontal gaps
-Alt+o ― decrease inner horizontal gaps
-Alt+Ctrl+y ― increase inner vertical gaps
-Alt+Ctrl+o ― decrease outer vertical gaps
-Alt+Super+y ― increase outer horizontal gaps
-Alt+Super+o ― decrease outer horizontal gaps
-Alt+Shift+y ― increase outer vertical gaps
-Alt+Shift+o ― decrease outer vertical gaps
+[Mod]+[Alt]+[0]         ― toggle gaps on and off
+[Mod]+[Alt]+[Shift]+[0] ― reset gaps back to default
+
+[Mod]+[Alt]+[h]         ― increase all gaps
+[Mod]+[Alt]+[l]         ― decrease all gaps
+
+[Mod]+[Alt]+[Shift]+[h] ― increase outer gaps
+[Mod]+[Alt]+[Shift]+[l] ― decrease outer gaps
+
+[Mod]+[Alt]+[Ctrl]+[h]  ― increase inner gaps
+[Mod]+[Alt]+[Ctrl]+[l]  ― decrease inner gaps
+
+[Mod]+[y]               ― increase inner horizontal gaps
+[Mod]+[o]               ― decrease inner horizontal gaps
+
+[Mod]+[Ctrl]+[y]        ― increase inner vertical gaps
+[Mod]+[Ctrl]+[o]        ― decrease outer vertical gaps
+
+[Mod]+[Alt]+[y]         ― increase outer horizontal gaps
+[Mod]+[Alt]+[o]         ― decrease outer horizontal gaps
+
+[Mod]+[Shift]+[y]       ― increase outer vertical gaps
+[Mod]+[Shift]+[o]       ― decrease outer vertical gaps
