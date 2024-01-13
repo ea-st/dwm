@@ -1,16 +1,6 @@
 east's dwm build
 =================
 
-[pictures go here when I configure the setup]
-
-The contiuned work on this config will be sparse as I'm not planning on using this long term. </br>
-[Xorg](https://x.org/) is antiquated and moving forwards I plan on using [dwl](https://github.com/djpohly/dwl) or a alternative.
-> "Why not switch now?" 
-
-I only have one functioning computer, a terrible laptop (Dell G15) which does not enjoy playing nicely. </br>
-I have never used [Wayland](https://wayland.freedesktop.org/) and to my knowledge it is unfriendly with nvidia graphics cards (like everything else).</br> I'd like to avoid the extra headache until I get a more permanent set-up.
-
-
 patches
 -------
 * [swallow](https://dwm.suckless.org/patches/swallow/)
@@ -62,7 +52,7 @@ QNA
 disclaimer
 ----------
 
-This is made mainly for myself, and for the purpose of archival.
+This is made for myself.
 
 This is not a special configuration i think you should use, it's just the one i made for me.
 
