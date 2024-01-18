@@ -213,6 +213,7 @@ static void resizeclient(Client *c, int x, int y, int w, int h);
 static void resizemouse(const Arg *arg);
 static void restack(Monitor *m);
 static void run(void);
+static void runAutostart(void); /* autostart patch */
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
@@ -1489,6 +1490,13 @@ run(void)
 }
 
 void
+
+runAutostart(void) {	/* autostart patch start */
+	system("cd ~/.dwm; ./autostart_blocking.sh");
+	system("cd ~/.dwm; ./autostart.sh &");
+}
+
+void	/* autostart patch end */
 scan(void)
 {
 	unsigned int i, num;
@@ -2456,6 +2464,7 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
+	runAutostart(); /* autostart patch */
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
