@@ -266,8 +266,11 @@ static Client *termforwin(const Client *c); /* swallow patch */
 static pid_t winpid(Window w); /* swallow patch */
 
 /* variables */
-static const char autostartblocksh[] = "autostart_blocking.sh";
+static const char autostartblocksh[] = "autostart_blocking.sh"; /* autostart patch */
+static const char autostartsh[] = "autostart.sh"; /* autostart patch */
 static const char broken[] = "broken";
+static const char dwmdir[] = "dwm"; /* autostart patch */
+static const char localshare[] = ".local/share"; /* autostart patch */
 static char stext[256];
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
