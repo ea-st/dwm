@@ -8,6 +8,7 @@ patches
 * [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/)
 * [actualfullscreen](https://dwm.suckless.org/patches/actualfullscreen/)
 * [sticky](https://dwm.suckless.org/patches/sticky/)
+* [autostart](https://dwm.suckless.org/patches/autostart/)
 * [dwmblocks (wip not yet added)](https://github.com/ashish-yadav11/)
 
 
